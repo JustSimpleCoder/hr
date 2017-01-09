@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="EmployeeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EmployeeRepository")
  * @ORM\Table(name="employee",options={"comment":"员工表"})
  */
-class Employee
+class Employee implements AdvancedUserInterface, \Serializable
 {
 
     /**
@@ -34,6 +36,11 @@ class Employee
     private $workexperiences;
 
     /**
+     * @ORM\OneToOne(targetEntity="Administrator",mappedBy="employee")
+     */
+    private $admin;
+
+    /**
      * @ORM\OneToMany(targetEntity="EduExperience",mappedBy="employee")
      */
     private $eduexperiences;
@@ -44,7 +51,7 @@ class Employee
     private $signrecords;
 
     /**
-     * @ORM\OneToOne(targetEntity="Employee")
+     * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(name="leader_id",referencedColumnName="id")
      */
     private $leader;
@@ -57,46 +64,59 @@ class Employee
     private $id;
 
     /**
-     * @ORM\Column(length=255,options={"comment":"email"})
+     * @ORM\Column(length=255,unique=true,options={"comment":"邮箱"})
+     * @Assert\Email(message="errors.messages.email",checkMX = true)
      */
     private $email;
 
     /**
      * @ORM\Column(length=255,options={"comment":"password"})
+     * @Assert\NotBlank
      */
     private $password;
 
     /**
      * @ORM\Column(length=255,options={"comment":"name"})
+     * @Assert\NotBlank(message="errors.messages.not_found")
      */
     private $name;
 
     /**
-     * @ORM\Column(length=30,options={"comment":"phone"})
+     * @ORM\Column(name="gender", type="string", length=1)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(length=30,nullable=true,options={"comment":"phone"})
      */
     private $phone;
 
     /**
-     * @ORM\Column(length=30,options={"comment":"seat_phone"})
+     * @ORM\Column(length=30,nullable=true,options={"comment":"seat_phone"})
      */
     private $seat_phone;
 
     /**
-     * @ORM\Column(type="date",options={"comment":"birthday"})
+     * @ORM\Column(type="date",nullable=true,options={"comment":"birthday"})
      */
     private $birthday;
 
     /**
-     * @ORM\Column(name="IDnumber",length=50,options={"comment":"身份证"})
+     * @ORM\Column(name="id_number",length=50,nullable=true,options={"comment":"身份证"})
      */
     private $IDnumber;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean",options={"comment":"是否可用","default":true})
+     */
+    private $isActive;
 
     public function __construct()
     {
         $this->workexperiences = new ArrayCollection();
+        $this->eduexperiences = new ArrayCollection();
         $this->signrecords = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -387,7 +407,7 @@ class Employee
     /**
      * Get holiday
      *
-     * @return \AppBundle\Entity\Holiday 
+     * @return \AppBundle\Entity\Holiday
      */
     public function getHoliday()
     {
@@ -420,7 +440,7 @@ class Employee
     /**
      * Get eduexperiences
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEduexperiences()
     {
@@ -453,10 +473,141 @@ class Employee
     /**
      * Get signrecords
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSignrecords()
     {
         return $this->signrecords;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Employee
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     * @return Employee
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**   --登录认证-- **/
+    public function getUsername()
+    {
+        return $this->name;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles()
+    {
+        $role = $this->admin->getRole();
+        $keys = array_keys(Administrator::ROLELIST);
+        $defule_key = end($keys);
+        return $role ? array_keys($role) : array($defule_key);
+    }
+
+    public function eraseCredentials() {}
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->password,
+            $this->isActive,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->password,
+            $this->isActive
+        ) = unserialize($serialized);
+    }
+
+    /**
+     * Set admin
+     *
+     * @param \AppBundle\Entity\Administrator $admin
+     * @return Employee
+     */
+    public function setAdmin(\AppBundle\Entity\Administrator $admin = null)
+    {
+        // $admin->setEmployee($this);
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \AppBundle\Entity\Administrator
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
     }
 }

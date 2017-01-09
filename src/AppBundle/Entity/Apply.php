@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity(repositoryClass="ApplyRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ApplyRepository")
  * @ORM\Table(name="apply",options={"comment":"附件"})
  */
 class Apply
@@ -54,7 +54,7 @@ class Apply
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ class Apply
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -100,7 +100,7 @@ class Apply
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -123,7 +123,7 @@ class Apply
     /**
      * Get annex
      *
-     * @return string 
+     * @return string
      */
     public function getAnnex()
     {
@@ -146,7 +146,7 @@ class Apply
     /**
      * Get applyType
      *
-     * @return integer 
+     * @return integer
      */
     public function getApplyType()
     {
@@ -169,7 +169,7 @@ class Apply
     /**
      * Get approver
      *
-     * @return \AppBundle\Entity\Employee 
+     * @return \AppBundle\Entity\Employee
      */
     public function getApprover()
     {
@@ -192,7 +192,7 @@ class Apply
     /**
      * Get applicant
      *
-     * @return \AppBundle\Entity\Employee 
+     * @return \AppBundle\Entity\Employee
      */
     public function getApplicant()
     {

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="RankRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RankRepository")
  * @ORM\Table(name="rank",options={"comment":"职务信息"})
  */
 class Rank

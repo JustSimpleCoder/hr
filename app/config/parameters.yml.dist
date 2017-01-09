@@ -4,9 +4,9 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     hr
     database_user:     root
-    database_password: ~
+    database_password: root
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -16,4 +16,24 @@ parameters:
     mailer_password:   ~
 
     # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            N*%o#Se3c4re_t@Toke!n
+
+    # 项目配置 (第一个为草集管理员，最后一个为普通用户)
+    admin_role:
+        super: 超级管理员
+        hr: 人事管理员
+        finance: 财务管理员
+        licit: 普通用户
+
+    aaaa:
+        fff: xxx
+
+    # 申请配置
+    apply_type:
+        overtime-money: 加班费
+        overtime-rest: 加班调休
+        leave: 休假
+        year-leave: 年假
+        sick-leave: 病假
+        funeral—leave: 丧假
+        other: 异常说明

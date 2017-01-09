@@ -1,0 +1,55 @@
+hello: 你好
+
+gender:
+  male: 男
+  female: 女
+
+yOrN:
+  yes: 是
+  no: 否
+
+fields:
+  password: 密码
+  confirm_password: 确认密码
+  email: 邮箱
+  name: 姓名
+  gender: 性别
+  phone: 电话
+  seat_phone: 固定电话
+  birthday: 生日
+  isActive: 是否在职
+  ID: 身份证
+  save: 保存
+
+
+date:
+    abbr_day_names:
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
+    abbr_month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    day_names:
+    - 星期日
+    - 星期一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 星期五
+    - 星期六

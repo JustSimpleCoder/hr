@@ -1,0 +1,5 @@
+errors:
+  messages:
+      not_found: 没有找到
+      email: 邮件格式错误或已存在
+      not_match: 密码不一致

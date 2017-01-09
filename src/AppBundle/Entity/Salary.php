@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SalaryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SalaryRepository")
  * @ORM\Table(name="salary",options={"comment":"薪水"})
  */
 class Salary

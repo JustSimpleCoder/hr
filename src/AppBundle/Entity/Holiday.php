@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="HolidayRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\HolidayRepository")
  * @ORM\Table(name="holiday")
  */
 class Holiday
@@ -47,7 +47,7 @@ class Holiday
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -70,7 +70,7 @@ class Holiday
     /**
      * Get yearLeave
      *
-     * @return integer 
+     * @return integer
      */
     public function getYearLeave()
     {
@@ -93,7 +93,7 @@ class Holiday
     /**
      * Get yearHas
      *
-     * @return integer 
+     * @return integer
      */
     public function getYearHas()
     {
@@ -116,7 +116,7 @@ class Holiday
     /**
      * Get marriageeave
      *
-     * @return integer 
+     * @return integer
      */
     public function getMarriageeave()
     {
@@ -139,7 +139,7 @@ class Holiday
     /**
      * Get maternityLeave
      *
-     * @return integer 
+     * @return integer
      */
     public function getMaternityLeave()
     {
@@ -162,7 +162,7 @@ class Holiday
     /**
      * Get employee
      *
-     * @return \AppBundle\Entity\Employee 
+     * @return \AppBundle\Entity\Employee
      */
     public function getEmployee()
     {

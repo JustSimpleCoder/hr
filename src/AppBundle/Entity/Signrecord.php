@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SignrecordRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SignrecordRepository")
  * @ORM\Table(name="signrecord",options={"comment":"打卡记录"})
  */
 class Signrecord
